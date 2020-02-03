@@ -1,23 +1,23 @@
 package com.fisco.scheduler.common;
 
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.Period;
 
 import org.springframework.stereotype.Component;
 
 @Component
 public class CalendarLib {
 
-	public Calendar setDate(String date) {
-		Calendar c = Calendar.getInstance();
-		c.set(Integer.parseInt(date.substring(0, 4)), Integer.parseInt(date.substring(4, 6)),
+	public LocalDate setDate(String date) {
+
+		return LocalDate.of(Integer.parseInt(date.substring(0, 4)), Integer.parseInt(date.substring(4, 6)),
 				Integer.parseInt(date.substring(6)));
-		return c;
 	}
 
 	public int getDifference(String startDate, String endDate) {
-		Calendar start = setDate(startDate);
-		Calendar end = setDate(endDate);
+		LocalDate start = setDate(startDate);
+		LocalDate end = setDate(endDate);
 
-		return (int) ((end.getTimeInMillis() - start.getTimeInMillis()) / (1000 * 60 * 60 * 24));
+		return Period.between(start, end).getDays();
 	}
 }

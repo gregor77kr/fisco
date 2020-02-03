@@ -8,6 +8,7 @@ public class Nurse implements Serializable {
 	private String name;
 	private String type;
 	private String birthDate;
+	private String workCount;
 	private String lastWorkDate;
 	private String lastWorkTime;
 
@@ -51,9 +52,18 @@ public class Nurse implements Serializable {
 		this.lastWorkTime = lastWorkTime;
 	}
 
+	public String getWorkCount() {
+		return workCount;
+	}
+
+	public void setWorkCount(String workCount) {
+		this.workCount = workCount;
+	}
+
 	@Override
 	public String toString() {
-		return "Nurse [name=" + name + ", type=" + type + ", birthDate=" + birthDate + ", lastWorkDate=" + lastWorkDate
-				+ ", lastWorkTime=" + lastWorkTime + "]";
+		return "Nurse [name=" + name + ", type=" + type + ", birthDate=" + birthDate + ", workCount=" + workCount
+				+ ", lastWorkDate=" + lastWorkDate + ", lastWorkTime=" + lastWorkTime + "]";
 	}
+
 }
