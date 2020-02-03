@@ -8,56 +8,68 @@ public class Nurse implements Serializable {
 	private String name;
 	private String type;
 	private String birthDate;
-	private String workCount;
+	private int workCount;
 	private String lastWorkDate;
 	private String lastWorkTime;
+
+	public Nurse() {
+		this.workCount = 0;
+		this.lastWorkDate = "";
+		this.lastWorkTime = "";
+	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public Nurse setName(String name) {
 		this.name = name;
+		return this;
 	}
 
 	public String getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public Nurse setType(String type) {
 		this.type = type;
+		return this;
 	}
 
 	public String getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(String birthDate) {
+	public Nurse setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
+		return this;
 	}
 
 	public String getLastWorkDate() {
 		return lastWorkDate;
 	}
 
-	public void setLastWorkDate(String lastWorkDate) {
+	public Nurse setLastWorkDate(String lastWorkDate) {
 		this.lastWorkDate = lastWorkDate;
+		return this;
 	}
 
 	public String getLastWorkTime() {
 		return lastWorkTime;
 	}
 
-	public void setLastWorkTime(String lastWorkTime) {
+	public Nurse setLastWorkTime(String lastWorkTime) {
 		this.lastWorkTime = lastWorkTime;
+		return this;
 	}
 
-	public String getWorkCount() {
+	public int getWorkCount() {
 		return workCount;
 	}
 
-	public void setWorkCount(String workCount) {
+	public Nurse setWorkCount(int workCount) {
 		this.workCount = workCount;
+		return this;
 	}
 
 	@Override
