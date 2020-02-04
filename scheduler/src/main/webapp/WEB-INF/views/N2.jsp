@@ -31,7 +31,7 @@
 				node.appendChild(textNode);
 				return node;
 			},
-			createInput : function(value, name, id, type) {
+			createInput : function(value, name, id) {
 				let node = document.createElement("input");
 				node.type = "text";
 				node.value = value;
@@ -44,6 +44,18 @@
 			}
 		};
 
+		function createBirthDay() {
+			let month = Math.floor((Math.random() * 12) + 1);
+			let lastDate = new Date(new Date().getFullYear(), month, 0)
+					.getDate();
+			let date = Math.floor((Math.random() * lastDate) + 1);
+
+			month = month < 10 ? "0" + month : month.toString();
+			date = date < 10 ? "0" + date : date.toString();
+
+			return month + date;
+		}
+
 		// 간호사 생일 입력 input 생성
 		(function() {
 			let headCount = document.querySelector("#headCount").value;
@@ -52,20 +64,13 @@
 
 			let form = document.querySelector("#form");
 
-			let date = new Date();
-			let year = date.getFullYear();
-			let month = date.getMonth() + 1
-			let day = date.getDate();
-
-			let today = year + (month < 10 ? "0" + month : month) + (day < 10 ? "0" + day : day);
-
 			// 수간호사
 			for (let i = 0; i < headCount; i++) {
 				let id = 'head' + i;
 
 				let div = dom.createDiv();
 				div.appendChild(dom.createLabel('수간호사' + i + ' : '));
-				div.appendChild(dom.createInput(today, id, id));
+				div.appendChild(dom.createInput(createBirthDay(), id, id));
 
 				form.appendChild(div);
 			}
@@ -76,7 +81,7 @@
 
 				let div = dom.createDiv();
 				div.appendChild(dom.createLabel('간호사' + i + ' : '));
-				div.appendChild(dom.createInput(today, id, id));
+				div.appendChild(dom.createInput(createBirthDay(), id, id));
 
 				form.appendChild(div);
 			}
@@ -87,11 +92,11 @@
 
 				let div = dom.createDiv();
 				div.appendChild(dom.createLabel('간호조무사' + i + ' : '));
-				div.appendChild(dom.createInput(today, id, id));
+				div.appendChild(dom.createInput(createBirthDay(), id, id));
 
 				form.appendChild(div);
 			}
-		})();
+		})()
 	</script>
 </body>
 </html>
