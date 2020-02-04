@@ -23,7 +23,7 @@
 		document.querySelector('#next').addEventListener('click', function() {
 			document.querySelector("#form").submit();
 		});
-
+	
 		var dom = {
 			createLabel : function(text) {
 				let node = document.createElement("label");
@@ -61,7 +61,6 @@
 			let headCount = document.querySelector("#headCount").value;
 			let nurseCount = document.querySelector("#nurseCount").value;
 			let assistCount = document.querySelector("#assistCount").value;
-
 			let form = document.querySelector("#form");
 
 			// 수간호사
@@ -96,7 +95,7 @@
 
 				form.appendChild(div);
 			}
-		})()
+		})();
 	</script>
 </body>
 </html>

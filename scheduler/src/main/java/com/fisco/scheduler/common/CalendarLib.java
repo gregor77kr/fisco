@@ -2,22 +2,20 @@ package com.fisco.scheduler.common;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.stream.LongStream;
-import java.util.stream.Stream;
 
 import org.springframework.stereotype.Component;
 
 @Component
 public class CalendarLib {
 
-	public LocalDate setDate(String date) {
+	public LocalDate generateDate(String date) {
 		return LocalDate.of(Integer.parseInt(date.substring(0, 4)), Integer.parseInt(date.substring(4, 6)),
 				Integer.parseInt(date.substring(6)));
 	}
 
 	public Period getPeriod(String startDate, String endDate) {
-		LocalDate start = setDate(startDate);
-		LocalDate end = setDate(endDate);
+		LocalDate start = generateDate(startDate);
+		LocalDate end = generateDate(endDate);
 
 		return Period.between(start, end);
 	}
@@ -30,12 +28,10 @@ public class CalendarLib {
 		int difference = getDifference(startDate, endDate);
 		int result = 0;
 
-		LocalDate start = setDate(startDate);
+		LocalDate start = generateDate(startDate);
 
 		for (int i = 0; i <= difference; i++) {
-			if (isHoliday(start.plusDays(i))) {
-				result++;
-			}
+			result = isHoliday(start.plusDays(i)) ? result + 1 : result;
 		}
 
 		return result;
@@ -47,7 +43,7 @@ public class CalendarLib {
 	}
 
 	public boolean isHoliday(String date) {
-		return isHoliday(setDate(date));
+		return isHoliday(generateDate(date));
 	}
 
 	/**
@@ -57,6 +53,6 @@ public class CalendarLib {
 	 * @return from 1 (Monday) to 7 (Sunday)
 	 */
 	public int getDay(String date) {
-		return setDate(date).getDayOfWeek().getValue();
+		return generateDate(date).getDayOfWeek().getValue();
 	}
 }
