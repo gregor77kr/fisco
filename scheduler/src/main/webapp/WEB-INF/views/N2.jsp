@@ -10,7 +10,7 @@
 </head>
 <body>
 
-	<form action="<c:url value='N3' />" method="get" id="form">
+	<form action="<c:url value='N3' />" method="post" id="form">
 		<input type="hidden" id="headCount" name="headCount" value="${headCount}">
 		<input type="hidden" id="nurseCount" name="nurseCount" value="${nurseCount}">
 		<input type="hidden" id="assistCount" name="assistCount" value="${assistCount}">

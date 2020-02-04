@@ -2,24 +2,55 @@ package com.fisco.scheduler.service;
 
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import com.fisco.scheduler.common.CalendarLib;
+import com.fisco.scheduler.vo.Nurse;
 
 @Service
 public class NService {
 	private static final Logger logger = LoggerFactory.getLogger(NService.class);
 
+	@Inject
+	CalendarLib c;
+
 	public Map<String, Object> createScheduler(Map<String, Object> param) throws Exception {
-		/*
-		 * { headCount = 2, nurseCount = 3, assistCount = 4, startDate = 20200201, endDate = 20200228,
-		 *   head0 = 0413, head1 = 0701, nurse0 = 0820, nurse1 = 0918,
-		 *   nurse2 = 0824, assist0 = 0306, assist1 = 0213, assist2 = 0502, assist3 = 1204
-		 * }
-		 */
 		logger.info(param.toString());
+
+		int headCount = Integer.parseInt(param.remove("headCount").toString());
+		int nurseCount = Integer.parseInt(param.remove("nurseCount").toString());
+		int assistCount = Integer.parseInt(param.remove("assistCount").toString());
+
+		String startDate = param.remove("startDate").toString();
+		String endDate = param.remove("endDate").toString();
+
+		Nurse[] headArray = createNurse(param, headCount, "head", "H");
+		Nurse[] nurseArray = createNurse(param, nurseCount, "nurse", "N");
+		Nurse[] assistArray = createNurse(param, assistCount, "assist", "A");
+
+		int difference = c.getDifference(startDate, endDate) + 1;
 		
-		
+
 		return null;
+	}
+
+	public Nurse[] createNurse(Map<String, Object> param, int length, String id, String type) {
+		Nurse[] nurseArray = new Nurse[length];
+
+		for (int i = 0; i < length; i++) {
+			String name = id + i;
+			nurseArray[i] = new Nurse().setName(name).setBirthDate(param.get(name).toString()).setType(type);
+		}
+		return nurseArray;
+	}
+
+	public void print(Nurse[] nurse) {
+		for (int i = 0; i < nurse.length; i++) {
+			logger.info(nurse[i].toString());
+		}
 	}
 }

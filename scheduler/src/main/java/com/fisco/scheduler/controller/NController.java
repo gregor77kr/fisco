@@ -28,14 +28,12 @@ public class NController {
 
 	@RequestMapping(value = "/N2", method = RequestMethod.GET)
 	public ModelAndView N2(@RequestParam Map<String, Object> param, ModelAndView model) {
-		logger.info(param.toString());
-
 		model.setViewName("N2");
 		model.addAllObjects(param);
 		return model;
 	}
 
-	@RequestMapping(value = "/N3", method = RequestMethod.GET)
+	@RequestMapping(value = "/N3", method = RequestMethod.POST)
 	public ModelAndView N3(@RequestParam Map<String, Object> param, ModelAndView model) throws Exception {
 
 		model.setViewName("N3");

@@ -1,6 +1,6 @@
 package com.fisco.scheduler;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -11,8 +11,13 @@ public class CalendarLibTest {
 	@Test
 	public void test() {
 		CalendarLib c = new CalendarLib();
-		
-		System.out.println(c.getDifference("20200203", "20200209"));
+
+		String startDate = "20200202";
+		String endDate = "20200209";
+
+		assertEquals(8, c.getDifference(startDate, endDate) + 1);
+		assertEquals(3, c.countHoliday(startDate, endDate));
+
 	}
 
 }
