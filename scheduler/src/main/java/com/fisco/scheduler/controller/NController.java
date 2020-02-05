@@ -38,6 +38,7 @@ public class NController {
 
 		model.setViewName("N3");
 		model.addAllObjects(nService.createScheduler(param));
+
 		return model;
 	}
 }

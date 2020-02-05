@@ -9,10 +9,42 @@
 <title>N3</title>
 </head>
 <body>
-	${head}
-	
+	<table id="table">
+		<thead id="thead"></thead>
+		<tbody id="tbody"></tbody>
+	</table>
+
 	<script type="text/javascript">
-		var head = "${head}";
+		var head = ${head};
+		head.unshift("이름");
+
+		var dom = {
+			createRow : function(id) {
+				let node = document.createElement('tr');
+				node.id = id;
+				return node;
+			},
+			createColumn : function(id, value) {
+				let node = document.createElement('td');
+				node.id = id;
+				
+				let text = document.createTextNode(value);
+				node.appendChild(text);
+				return node;
+			}
+		}
+
+		function createHead() {
+			let row = document.getElementById('thead');
+			head.forEach(function(value, index) {
+				let column = dom.createColumn('thead' + index, value);
+				row.appendChild(column);
+			});
+		}
+		
+		window.onload = function() {
+			createHead();
+		}
 	</script>
 </body>
 </html>

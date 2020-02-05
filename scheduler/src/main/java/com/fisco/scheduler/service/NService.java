@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.json.simple.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -23,36 +24,30 @@ public class NService {
 	@Inject
 	CalendarLib c;
 
+	@SuppressWarnings("unchecked")
 	public Map<String, Object> createScheduler(Map<String, Object> param) throws Exception {
-
-		int headCount = Integer.parseInt(param.remove("headCount").toString());
-		int nurseCount = Integer.parseInt(param.remove("nurseCount").toString());
-		int assistCount = Integer.parseInt(param.remove("assistCount").toString());
-
+		Map<String, Object> result = new HashMap<String, Object>();
 		String startDate = param.remove("startDate").toString();
 		String endDate = param.remove("endDate").toString();
 
-		Map<String, Object> result = new HashMap<String, Object>();
-		List<Map<String, Object>> data = new LinkedList<Map<String, Object>>();
-
-		result.put("startDate", startDate);
-		result.put("endDate", endDate);
-
 		int difference = c.getDifference(startDate, endDate) + 1;
-		int workDays = difference - c.countHoliday(startDate, endDate);
 
 		// head 생성
 		LocalDate start = c.generateDate(startDate);
-		List<String> period = new ArrayList<String>();
+		JSONArray period = new JSONArray();
 
 		for (int i = 0; i <= difference; i++) {
 			LocalDate term = start.plusDays(i);
 			period.add(term.toString());
 		}
+		logger.info(period.toString());
 		result.put("head", period);
-		
+
 		// body 생성
-		
+		List<Map<String, Object>> data = new LinkedList<Map<String, Object>>();
+		int headCount = Integer.parseInt(param.remove("headCount").toString());
+		int nurseCount = Integer.parseInt(param.remove("nurseCount").toString());
+		int assistCount = Integer.parseInt(param.remove("assistCount").toString());
 
 		return result;
 	}
