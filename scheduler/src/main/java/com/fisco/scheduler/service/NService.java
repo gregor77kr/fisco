@@ -3,7 +3,6 @@ package com.fisco.scheduler.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -36,19 +35,56 @@ public class NService {
 		LocalDate start = c.generateDate(startDate);
 		JSONArray period = new JSONArray();
 
-		for (int i = 0; i <= difference; i++) {
+		for (int i = 0; i < difference; i++) {
 			LocalDate term = start.plusDays(i);
 			period.add(term.toString());
 		}
-		logger.info(period.toString());
 		result.put("head", period);
 
 		// body 생성
-		List<Map<String, Object>> data = new LinkedList<Map<String, Object>>();
+		JSONArray data = new JSONArray();
+
 		int headCount = Integer.parseInt(param.remove("headCount").toString());
 		int nurseCount = Integer.parseInt(param.remove("nurseCount").toString());
 		int assistCount = Integer.parseInt(param.remove("assistCount").toString());
 
+		// 수간호사 data 생성
+		List<Nurse> headList = createNurse(param, headCount, "head", "H");
+		int headWorkDays = difference - c.countHoliday(startDate, endDate);
+		int workDaysPerHead = (int) Math.ceil(headWorkDays / headCount);
+
+		for (int i = 0; i < headCount; i++) {
+			JSONArray workData = new JSONArray();
+			Nurse head = headList.get(i);
+			workData.add(head.getName());
+
+			int index = 0;
+
+			for (int j = 0, length = period.size(); j < length; j++) {
+				String date = period.get(j).toString().replace("-", "");
+
+				if (index >= headCount) {
+					index = 0;
+				}
+
+				if (c.isHoliday(date)) {
+					workData.add("");
+					continue;
+				}
+
+				String birthDate = date.substring(4);
+				if (head.getBirthDate().equals(birthDate)) {
+					workData.add("");
+					continue;
+				}
+				
+				workData.add(index == i ? "주간" : "");
+				index++;
+			}
+			data.add(workData);
+		}
+
+		result.put("body", data);
 		return result;
 	}
 

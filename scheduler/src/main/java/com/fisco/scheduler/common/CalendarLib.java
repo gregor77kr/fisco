@@ -48,6 +48,7 @@ public class CalendarLib {
 
 	/**
 	 * Returns int value for a day of week
+	 * 
 	 * @param date String of 'yyyymmdd' format
 	 * @return from 1 (Monday) to 7 (Sunday)
 	 */

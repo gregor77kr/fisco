@@ -17,7 +17,8 @@
 	<script type="text/javascript">
 		var head = ${head};
 		head.unshift("이름");
-
+		var body = ${body};
+		
 		var dom = {
 			createRow : function(id) {
 				let node = document.createElement('tr');
@@ -35,15 +36,32 @@
 		}
 
 		function createHead() {
-			let row = document.getElementById('thead');
+			let row = dom.createRow('theadRow');
+			
 			head.forEach(function(value, index) {
 				let column = dom.createColumn('thead' + index, value);
 				row.appendChild(column);
+			});
+			document.getElementById('thead').appendChild(row);
+		}
+		
+		function createBody() {
+			let target = document.getElementById('tbody');
+			
+			body.forEach((v, i) => {
+				let row = dom.createRow('tbodyRow' + i);
+				
+				v.forEach((value, index) => {
+					let column = dom.createColumn('td(' + i + "," + index + ")", value);
+					row.appendChild(column);
+				});
+				target.appendChild(row);
 			});
 		}
 		
 		window.onload = function() {
 			createHead();
+			createBody();
 		}
 	</script>
 </body>
