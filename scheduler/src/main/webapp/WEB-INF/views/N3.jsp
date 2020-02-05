@@ -9,6 +9,10 @@
 <title>N3</title>
 </head>
 <body>
-
+	${head}
+	
+	<script type="text/javascript">
+		var head = "${head}";
+	</script>
 </body>
 </html>

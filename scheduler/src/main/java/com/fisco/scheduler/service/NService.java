@@ -1,5 +1,10 @@
 package com.fisco.scheduler.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -19,7 +24,6 @@ public class NService {
 	CalendarLib c;
 
 	public Map<String, Object> createScheduler(Map<String, Object> param) throws Exception {
-		logger.info(param.toString());
 
 		int headCount = Integer.parseInt(param.remove("headCount").toString());
 		int nurseCount = Integer.parseInt(param.remove("nurseCount").toString());
@@ -28,29 +32,38 @@ public class NService {
 		String startDate = param.remove("startDate").toString();
 		String endDate = param.remove("endDate").toString();
 
-		Nurse[] headArray = createNurse(param, headCount, "head", "H");
-		Nurse[] nurseArray = createNurse(param, nurseCount, "nurse", "N");
-		Nurse[] assistArray = createNurse(param, assistCount, "assist", "A");
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<Map<String, Object>> data = new LinkedList<Map<String, Object>>();
+
+		result.put("startDate", startDate);
+		result.put("endDate", endDate);
 
 		int difference = c.getDifference(startDate, endDate) + 1;
+		int workDays = difference - c.countHoliday(startDate, endDate);
+
+		// head 생성
+		LocalDate start = c.generateDate(startDate);
+		List<String> period = new ArrayList<String>();
+
+		for (int i = 0; i <= difference; i++) {
+			LocalDate term = start.plusDays(i);
+			period.add(term.toString());
+		}
+		result.put("head", period);
+		
+		// body 생성
 		
 
-		return null;
+		return result;
 	}
 
-	public Nurse[] createNurse(Map<String, Object> param, int length, String id, String type) {
-		Nurse[] nurseArray = new Nurse[length];
+	public List<Nurse> createNurse(Map<String, Object> param, int length, String id, String type) {
+		List<Nurse> nurseList = new ArrayList<Nurse>();
 
 		for (int i = 0; i < length; i++) {
 			String name = id + i;
-			nurseArray[i] = new Nurse().setName(name).setBirthDate(param.get(name).toString()).setType(type);
+			nurseList.add(new Nurse().setName(name).setBirthDate(param.get(name).toString()).setType(type));
 		}
-		return nurseArray;
-	}
-
-	public void print(Nurse[] nurse) {
-		for (int i = 0; i < nurse.length; i++) {
-			logger.info(nurse[i].toString());
-		}
+		return nurseList;
 	}
 }
