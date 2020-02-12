@@ -7,6 +7,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>N3</title>
+<style type="text/css">
+table, th, td {
+	border: 1px solid black;
+}
+</style>
 </head>
 <body>
 	<table id="table">
@@ -59,9 +64,33 @@
 			});
 		}
 		
+		function setColor() {
+			let target = document.getElementById('theadRow').childNodes;
+			
+			target.forEach((value, index) => {
+				let date = new Date(value.textContent);
+				
+				if (!isNaN(date)) {
+					// 0 : sunday
+					switch(date.getDay()) {
+						case 0 :
+							value.bgColor = 'RED';
+							break;
+						case 6 :
+							value.bgColor = 'BLUE';
+							break;
+						default :
+							value.bgColor = 'GRAY';
+							break;
+					}
+				}
+			});
+		}
+		
 		window.onload = function() {
 			createHead();
 			createBody();
+			setColor();
 		}
 	</script>
 </body>

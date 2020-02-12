@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.fisco.scheduler.common.CalendarLib;
+import com.fisco.scheduler.type.WorkTime;
 import com.fisco.scheduler.vo.Nurse;
 
 @Service
@@ -50,8 +51,7 @@ public class NService {
 
 		// 수간호사 data 생성
 		List<Nurse> headList = createNurse(param, headCount, "head", "H");
-		int headWorkDays = difference - c.countHoliday(startDate, endDate);
-		int workDaysPerHead = (int) Math.ceil(headWorkDays / headCount);
+		WorkTime[] workTime = WorkTime.values();
 
 		for (int i = 0; i < headCount; i++) {
 			JSONArray workData = new JSONArray();
@@ -68,18 +68,48 @@ public class NService {
 				}
 
 				if (c.isHoliday(date)) {
-					workData.add("");
+					workData.add("주말");
 					continue;
 				}
 
 				String birthDate = date.substring(4);
 				if (head.getBirthDate().equals(birthDate)) {
-					workData.add("");
+					workData.add("생일");
 					continue;
 				}
-				
-				workData.add(index == i ? "주간" : "");
+
+				workData.add(index == i ? workTime[1].name() : "휴일");
 				index++;
+			}
+			data.add(workData);
+		}
+
+		List<Nurse> nurseList = createNurse(param, nurseCount, "nurse", "N");
+		// 간호사
+		for (int i = 0; i < nurseCount; i++) {
+			JSONArray workData = new JSONArray();
+			Nurse nurse = nurseList.get(i);
+			workData.add(nurse.getName());
+
+			for (int j = 0, length = period.size(); j < length; j++) {
+				String date = period.get(j).toString().replace("-", "");
+
+				String birthDate = date.substring(4);
+				if (nurse.getBirthDate().equals(birthDate)) {
+					workData.add("생일");
+					continue;
+				}
+
+				String nurseLastWorkTime = nurse.getLastWorkTime();
+				String nurseWorkTime = (nurseLastWorkTime.isEmpty()) ? workTime[i % 3].name() : nurseLastWorkTime;
+
+				// switching on monday
+				if (c.getDay(date) == 1 && !nurseLastWorkTime.isEmpty()) {
+					nurseWorkTime = workTime[(WorkTime.valueOf(nurseLastWorkTime).ordinal() + 1) % 3].name();
+				}
+
+				workData.add(nurseWorkTime);
+				nurse.setLastWorkTime(nurseWorkTime);
 			}
 			data.add(workData);
 		}
