@@ -13,7 +13,7 @@
     <main class="main">
         <table class="js-calculator">
             <tr class="js-row">
-                <td colspan="5" class="js-column js-result">
+                <td colspan="6" class="js-column js-result">
                     <span>0</span>
                 </td>
                 <td id="clear" class="js-column">
@@ -48,6 +48,12 @@
                         sin
                     </button>
                 </td>
+
+                <td id="root" class="js-column">
+                    <button class="js-operator">
+                        √
+                    </button>
+                </td>
             </tr>
             <tr class="js-row">
                 <td id="4" class="js-column">
@@ -76,6 +82,12 @@
                 <td id="cos" class="js-column">
                     <button class="js-operator">
                         cos
+                    </button>
+                </td>
+
+                <td id="square" class="js-column">
+                    <button class="js-operator">
+                        x<sup>y</sup>
                     </button>
                 </td>
             </tr>
@@ -108,6 +120,11 @@
                         tan
                     </button>
                 </td>
+                <td id="log" class="js-column">
+                    <button class="js-operator">
+                        <i>ln</i>
+                    </button>
+                </td>
             </tr>
             <tr class="js-row">
                 <td id="0" colspan="2" class="js-column">
@@ -123,6 +140,18 @@
                 <td id="division" class="js-column">
                     <button class="js-operator">
                         /
+                    </button>
+                </td>
+
+                <td id="exp" class="js-column">
+                    <button class="js-operator">
+                        exp
+                    </button>
+                </td>
+
+                <td id="log10" class="js-column">
+                    <button class="js-operator">
+                        <span style="font-size: small; text-align: center;">log10</span>
                     </button>
                 </td>
             </tr>

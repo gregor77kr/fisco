@@ -7,7 +7,7 @@ const calculator = document.querySelector(".js-calculator"),
     equalBtn = calculator.querySelector(".js-equal"),
     resultText = calculator.querySelector(".js-result span");
 
-// constants
+
 
 // variables
 let operand = 0,
@@ -55,7 +55,16 @@ function calculateNum(x, y) {
         result = ((Math.cos(x))).toString();
     } else if (operator === "tan") {
         result = ((Math.tan(x))).toString();
-
+    } else if (operator === "exp") {
+        result = ((Math.exp(x))).toString();
+    } else if (operator === "root") {
+        result = ((Math.sqrt(x))).toString();
+    } else if (operator === "square") {
+        result = ((Math.pow(x, y))).toString();
+    } else if (operator === "log") {
+        result = ((Math.log(x))).toString();
+    } else if (operator === "log10") {
+        result = ((Math.log10(x))).toString();
     }
 }
 
