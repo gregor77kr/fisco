@@ -5,8 +5,7 @@ const calculator = document.querySelector(".js-calculator"),
     numBtns = calculator.querySelectorAll(".js-number"),
     operBtns = calculator.querySelectorAll(".js-operator"),
     equalBtn = calculator.querySelector(".js-equal"),
-    resultText = calculator.querySelector(".js-result span");
-
+    resultText = calculator.querySelector(".js-result span")
 
 
 // variables
@@ -45,7 +44,7 @@ function calculateNum(x, y) {
         result = (x + y).toString();
     } else if (operator === "minus") {
         result = (x - y).toString();
-    } else if (operator === "mult") {
+    } else if (operator === "multiply") {
         result = (x * y).toString();
     } else if (operator === "div") {
         result = (x / y).toString();
@@ -72,8 +71,17 @@ function calculateNum(x, y) {
 // initalize operand, count, afterOper
 function handleEqual(event) {
     event.preventDefault();
-    const resultInt = parseInt(result),
+
+    let resultInt, operandInt = "";
+
+    // parseFloat
+    if (result.toString().indexOf(".") > -1 || operand.toString().indexOf(".") > -1) {
+        resultInt = parseFloat(result);
+        operandInt = parseFloat(operand);
+    } else {
+        resultInt = parseInt(result);
         operandInt = parseInt(operand);
+    }
 
     console.log(resultInt, operator, operandInt);
 
@@ -91,7 +99,15 @@ function handleOper(event) {
     afterOper = true;
 
     if (count > 0) {
-        calculateNum(parseInt(result), parseInt(operand));
+        // parseFloat
+        if (result.toString().indexOf(".") > -1 || operand.toString().indexOf(".") > -1) {
+            result = parseFloat(result);
+            operand = parseFloat(operand);
+        } else {
+            result = parseInt(result);
+            operand = parseInt(operand);
+        }
+        calculateNum(result, operand);
         paintNum(result);
     }
 
