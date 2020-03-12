@@ -1,4 +1,4 @@
-let temp="0", k=0;
+let temp="0", k=0,res=0;
 var array=[];
 var numArray=[];
 let oper1 = null;
@@ -114,9 +114,97 @@ function operate()
         calcform.txt1.value=answer;
         flag=0;
         answer=0;
-        
-    //전체 에러    
-    }else{
+    
+    }
+    else if(flag==4)
+    {
+        k=0;
+        answer=0;
+        k=document.getElementById('viewbar1').value;
+        k=k.replace("sqrt","");
+        k=k.replace("(","");
+        k=k.replace(")","");
+        answer=Math.sqrt(k);
+        calcform.txt1.value=answer;
+        flag=0;
+        answer=0;
+    }
+    else if(flag==5)
+    {
+        k=0;
+        answer=0;
+        k=document.getElementById('viewbar1').value;
+        k=k.replace("^3","");
+        k=k.replace("(","");
+        k=k.replace(")","");
+        res=1;
+        for(i=0;i<3;i++)
+        {
+            res=res*k;
+        }
+        answer=res;
+        res=0;
+        calcform.txt1.value=answer;
+        flag=0;
+        answer=0;
+    }
+    else if(flag==6){
+        k=0;
+        answer=0;
+        k=document.getElementById('viewbar1').value;
+        k=k.replace("^2","");
+        k=k.replace("(","");
+        k=k.replace(")","");
+        res=1;
+        for(i=0;i<2;i++)
+        {
+            res=res*k;
+        }
+        answer=res;
+        res=0;
+        calcform.txt1.value=answer;
+        flag=0;
+        answer=0;
+    }
+    else if(flag==7)
+    {
+        k=0;
+        answer=0;
+        k=document.getElementById('viewbar1').value;
+        k=k.replace("^","");
+        k=k.replace(a--,"");
+        k=k.replace("(","");
+        k=k.replace(")","");
+        answer=Math.pow(a,k);
+        calcform.txt1.value=answer;
+        answer=0;
+    }
+    else if(flag==8)
+    {
+        k=0;
+        answer=0;
+        k=document.getElementById('viewbar1').value;
+        k=k.replace("log","");
+        k=k.replace("(","");
+        k=k.replace(")","");
+        answer=Math.log10(k);
+        calcform.txt1.value=answer;
+        answer=0;
+    }
+    else if(flag==9)
+    {
+        k=0;
+        answer=0;
+        k=document.getElementById('viewbar1').value;
+        k=k.replace("ln","");
+        k=k.replace("(","");
+        k=k.replace(")","");
+        answer=Math.log(k);
+        calcform.txt1.value=answer;
+        answer=0;
+    }
+    else
+    {
         calcform.txt1.value="MATH ERROR";
     }
 }
@@ -142,21 +230,57 @@ function fbc()
     calcform.txt1.value+=")";
 }
 
-//sin flag value
+//give sin flag value
 function mysin()
 {
     flag=1;
     calcform.txt1.value="sin";
 }
-//cos flag value
+//give cos flag value
 function mycos()
 {
     flag=2;
     calcform.txt1.value="cos";
 }
-//tan flag value
+//give tan flag value
 function mytan()
 {
    flag=3;
    calcform.txt1.value="tan";
+}
+//give sqrt flag value
+function sqrt(){
+    flag=4;
+    calcform.txt1.value="sqrt";
+}
+//give cube flag value
+function cube(){
+    flag=5;
+    calcform.txt1.value+="^3";
+}
+//give square flag value
+function square(){
+    flag=6;
+    calcform.txt1.value+="^2";
+}
+//give pow flag value
+function pow(){
+    flag=7;
+    a=document.getElementById('viewbar1').value;
+    calcform.txt1.value+="^";
+}
+//give log flag value
+function mylog(){
+    calcform.txt1.value="log";
+    flag=8;
+}
+//give ln flag value
+function myln(){
+    calcform.txt1.value="ln";
+    flag=9;
+}
+//give fact flag value
+function fact1(){
+    calcform.txt1.value+="!";
+    flag=10;
 }
