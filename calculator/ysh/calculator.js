@@ -3,7 +3,8 @@ var array=[];
 var numArray=[];
 let oper1 = null;
 let num1 = null, num2 = null;
-var flag=0,answer=0,n1;
+var flag=0,answer=0, answer2=0, n1;
+let fact=1;
 //화면상단
 function show(n1)
 {
@@ -203,6 +204,41 @@ function operate()
         calcform.txt1.value=answer;
         answer=0;
     }
+    else if(flag==10)
+    {
+        k=0;
+        answer=0;
+        k=document.getElementById('viewbar1').value;
+        k=k.replace("!","");
+        k=k.replace("(","");
+        k=k.replace(")","");
+       
+        for(i=k;i>0;i--)
+        {
+            fact=fact*i;
+        }
+        calcform.txt1.value=fact;
+        fans=fact;
+        fact=1;
+    }
+    else if(flag==11)
+    {
+    	k=0;
+    	answer=0;
+    	k=document.getElementById('viewbar1').value;
+    	k=k.replace("e","");
+        k=k.replace("(","");
+        k=k.replace(")","");
+        if(k==0){
+        	k="1";
+        }
+    	answer=Number(k);
+    	answer2=(answer*2.71828182846);
+    	calcform.txt1.value=answer2;
+    	answer=0;
+    	answer2=0;
+    	flag=0;
+    }
     else
     {
         calcform.txt1.value="MATH ERROR";
@@ -283,4 +319,9 @@ function myln(){
 function fact1(){
     calcform.txt1.value+="!";
     flag=10;
+}
+//give e flag value
+function naturale(){
+	calcform.txt1.value+="e";
+	flag=11;
 }
