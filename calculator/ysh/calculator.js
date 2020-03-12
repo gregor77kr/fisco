@@ -173,12 +173,13 @@ function operate()
         answer=0;
         k=document.getElementById('viewbar1').value;
         k=k.replace("^","");
-        k=k.replace(a--,"");
+        k=k.replace(a,"");
         k=k.replace("(","");
         k=k.replace(")","");
         answer=Math.pow(a,k);
         calcform.txt1.value=answer;
         answer=0;
+        flag=0;
     }
     else if(flag==8)
     {
@@ -191,6 +192,7 @@ function operate()
         answer=Math.log10(k);
         calcform.txt1.value=answer;
         answer=0;
+        flag=0;
     }
     else if(flag==9)
     {
@@ -203,6 +205,7 @@ function operate()
         answer=Math.log(k);
         calcform.txt1.value=answer;
         answer=0;
+        flag=0;
     }
     else if(flag==10)
     {
@@ -220,6 +223,7 @@ function operate()
         calcform.txt1.value=fact;
         fans=fact;
         fact=1;
+        flag=0;
     }
     else if(flag==11)
     {
@@ -229,11 +233,27 @@ function operate()
     	k=k.replace("e","");
         k=k.replace("(","");
         k=k.replace(")","");
-        if(k==0){
+        if(k==0)
+        {
         	k="1";
         }
     	answer=Number(k);
     	answer2=(answer*2.71828182846);
+    	calcform.txt1.value=answer2;
+    	answer=0;
+    	answer2=0;
+    	flag=0;
+    }
+    else if(flag==12)
+    {
+    	k=0;
+    	answer=0;
+    	k=document.getElementById('viewbar1').value;
+    	k=k.replace("π","");
+    	k=k.replace("(","");
+    	k=k.replace(")","");
+    	answer=Number(k);
+    	answer2=(answer*3.141592653589793);
     	calcform.txt1.value=answer2;
     	answer=0;
     	answer2=0;
@@ -324,4 +344,9 @@ function fact1(){
 function naturale(){
 	calcform.txt1.value+="e";
 	flag=11;
+}
+//give pi flag value
+function pi(){
+	calcform.txt1.value+="π";
+	flag=12;
 }
